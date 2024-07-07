@@ -1,4 +1,9 @@
 import { searchForm } from "../main";
+
+
+
+
+
 export function renderImage(data, galleryBox) {
   const markup = data.hits
     .map(
@@ -19,10 +24,22 @@ export function renderImage(data, galleryBox) {
           alt="${tags}"
         />
         <ul class="gallery-info">
-          <li>Likes: ${likes}</li>
-          <li>Views: ${views}</li>
-          <li>Comments: ${comments}</li>
-          <li>Downloads: ${downloads}</li>
+          <li class='info-items'>
+          <h3 class='info-title'>Likes</h3>
+          <p class="value"> ${likes}</p>
+          </li>
+          <li class='info-items'>
+          <h3 class='info-title'>Views</h3>
+          <p class="value">${views}</p>
+          </li>
+          <li class='info-items'>
+          <h3 class='info-title'>Comments</h3>
+          <p class="value">${comments}</p>
+          </li>
+          <li class='info-items'>
+          <h3 class='info-title'>Downloads</h3>
+         <p class="value"> ${downloads}</p>
+          </li>
         </ul>
       </a>
     </li>

@@ -16,23 +16,30 @@ lightbox = new SimpleLightbox('.gallery a', {
   captionDelay: 250,
 });
 
-export const searchForm = document.querySelector('.search-from');
+export const searchForm = document.querySelector('.search-form');
 export const galleryBox = document.querySelector('.gallery');
+// console.log('Fetching images for query:', queryValue);
 searchForm.addEventListener('submit', handlerSearchImage);
 
 function handlerSearchImage(evt) {
   evt.preventDefault();
-  if (evt.currentTarget.elements.search.value === '') {
-    return onFetchError();
+  if (evt.currentTarget.elements.search.value.trim() === '') {
+      return onFetchError();
   }
   const form = evt.currentTarget;
   const queryValue = form.elements.search.value.toLowerCase().trim();
   renderLoader();
-  fetchGetImage(queryValue)
-    .then(data => {
-      renderImage(data, galleryBox);
+    fetchGetImage(queryValue)
+        .then(data => { 
+            if (data.hits.length === 0) { 
+                throw new Error(onFetchError)
+            }
+            return data
+        })
+      .then(data => {
+        renderImage(data, galleryBox);
       if (lightbox) {
-        lightbox.refresh(); // Обновляем галерею после добавления новых изображений
+        lightbox.refresh();
       } else {
         lightbox = new SimpleLightbox('.gallery a', {
           captionSelector: 'img',
@@ -42,7 +49,8 @@ function handlerSearchImage(evt) {
         });
       }
     })
-    .catch(onFetchError)
+      .catch(onFetchError)
+      
       .finally(() => {
           removeLoader(),
         searchForm.reset()
