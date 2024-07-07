@@ -18,22 +18,14 @@ export function fetchGetImage(query) {
       }
       return res.json();
     })
-    // .then(data => {
-    //   if (data.hits.length === 0) {
-    //     throw new Error(res.status)
-    //   }
-    //   return data;
-    // });
 }
 export function onFetchError(error) {
-  //   console.error('Error fetching images:', error)
-    //   searchForm.innerHTML = '';
-
+    galleryBox.innerHTML = ''
     searchForm.reset()
     iziToast.error({
     //   messageColor: 'white',
         theme: 'dark',
-      maxWidth: '432px',
+        maxWidth: '432px',
       position: 'topRight',
       messageLineHeight: '150%',
       messageSize: '16px',
