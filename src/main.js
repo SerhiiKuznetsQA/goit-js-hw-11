@@ -23,9 +23,11 @@ searchForm.addEventListener('submit', handlerSearchImage);
 
 function handlerSearchImage(evt) {
   evt.preventDefault();
-  if (evt.currentTarget.elements.search.value.trim() === '') {
-      return onFetchError();
-  }
+    if (evt.currentTarget.elements.search.value.trim() === '') {
+        return onFetchError();
+    } else if (galleryBox.hasChildNodes) {
+        galleryBox.innerHTML = "";
+     }
   const form = evt.currentTarget;
   const queryValue = form.elements.search.value.toLowerCase().trim();
   renderLoader();
@@ -56,4 +58,4 @@ function handlerSearchImage(evt) {
         searchForm.reset()
       });
 }
-
+console.log(galleryBox);
